@@ -1,0 +1,182 @@
+@import '../../styles/MainTheme.scss';
+
+.container{
+    font-family: $menufont;
+
+    .aboutDukkan{
+        background-color: rgb(211, 209, 209);
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+
+        .social{
+            display: flex;
+            justify-content: space-evenly;
+            width: 20%;
+
+            a{
+                &:nth-child(1):hover{
+                    color: #4867AA;
+                }
+                &:nth-child(2):hover{
+                    color: #1DA1F2;
+                }
+                &:nth-child(3):hover{
+                    color: #E74E60;
+                }
+                &:nth-child(4):hover{
+                    color: #FE0000;
+                }
+            }
+        }
+        .help{
+            display: flex;
+            justify-content: space-evenly;
+            width: 20%;
+
+            a{
+                &::before {  
+                    transform: scaleX(0);
+                    transform-origin: bottom right;
+                  }
+
+                  &:hover{
+                      color: black;
+                  }
+                  
+                  &:hover::before {
+                    transform: scaleX(1);
+                    transform-origin: bottom left;
+                  }
+                  
+                  &::before {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    top: 0; right: 0; bottom: 0; left: 0;
+                    inset: 0 0 0 0;
+                    background: $logoColor;
+                    z-index: -1;
+                    transition: transform .3s ease;
+                    border-radius: 2px;
+                  }
+                  &{
+                    cursor: pointer;
+                    color: grey;
+                    position: relative;
+                    margin-right: 1rem;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+
+    .mainNav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: whitesmoke;
+    
+        .logo{
+            background-color: #F5F543;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .userItems{
+            display: flex;
+            width: 20%;
+            justify-content: space-between;
+        }
+        label{
+            display: flex;
+            align-items: center;
+            height: 5rem;
+            cursor: pointer;
+
+            p{
+                display: flex;
+                flex-direction: column;
+                margin-left: 5px;
+            }
+        }  
+    } 
+
+    .categories{
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #473e3e;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 1rem;
+        color: white;
+
+        label{
+            position: relative;
+            cursor: pointer;
+            &::before{
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 0;
+                height: 2px;
+                background-color: $logoColor;
+                transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+                
+              }
+              @media (hover: hover) and (pointer: fine) {
+                &:hover::before{
+                  left: 0;
+                  right: auto;
+                  width: 100%;
+                }
+              }
+        }
+    }
+
+    .location{
+        background-color: #F5F5F5;
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+    }
+}
+@media screen and (max-width:950px){
+    .container{
+    .aboutDukkan{
+        .social{
+            width: 50%;  
+        }
+        .help{
+            width: 50%;
+        }
+    } 
+
+    .mainNav{
+        flex-direction: column;
+
+        .logo{
+            width: 150px;
+            height: 150px;
+            margin-bottom: 1rem;
+        }
+        .userItems{
+            display: flex;
+            width: 70%;
+            justify-content: space-between;
+        }
+    } 
+
+    .categories{
+        padding-right: 0;
+        padding-left: 0;
+        label{
+            position: relative;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 6px;
+            border-right: solid 1px black;   
+        }
+    }
+}
+}

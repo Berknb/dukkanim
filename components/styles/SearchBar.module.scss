@@ -1,0 +1,68 @@
+@import '../../styles/MainTheme.scss';
+
+.container{
+    width: 50%;
+
+    .main{
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    
+        .searchBar{
+            width: 100%;
+            height: 46px;
+            padding: 5px;
+            font-size: 15px;
+
+            &:focus{
+                background-color: #D3D1D1;
+                
+                
+            }
+          }
+    
+        .searchBtn{
+            height: 46px;
+            padding: 10px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: $main-theme-color;
+            color: white;
+        }  
+    }
+
+    .searchResults{
+        position: absolute;
+        z-index: 2;
+
+        ul{
+            list-style: none;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 5px;
+            
+            li{
+                border-bottom: 1px solid grey;
+                padding: 2rem;
+                font-weight: lighter;
+
+                &:hover{
+                    background-color: $main-theme-color;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+
+        }
+        
+    }
+    
+}
+@media screen and (max-width:950px){
+    .container{
+        width: 100%;
+    }
+}
