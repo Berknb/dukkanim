@@ -44,7 +44,7 @@ useEffect(() => {
               </section> 
               </div>
               <section className={Classes.searchResults}>
-              {filtered.length > 0 && search.length > 2 && <ul>
+              {filtered.length > 0 ? search.length > 2 && <ul>
                 {filtered.map((item) => {
                     return (
                     <li key={item.key}>
@@ -52,7 +52,7 @@ useEffect(() => {
                     </li>
                     )
                 })}
-            </ul>}
+            </ul>:<ul><li>Eşleşen ürün yok </li></ul>}
               </section> 
       </div>
   )
