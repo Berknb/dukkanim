@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api";
 import Classes from './List.module.scss'
 import ReactPaginate from 'react-paginate';
 import Image from "next/image";
@@ -22,12 +22,10 @@ export default function BeyazEsya() {
   const notifyFav = () => toast.success("Ürün favorilere eklendi!");
 
 
-  const config = {
-    headers: { Authorization: "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMjA1Mzk2Zi0xMjNlLTQ0YmUtOGIwZS01NGYyYmU4NGEyZTYiLCJ1c2VyaWQiOiIxMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZ3VpZCI6IkEzQTctQ0QzQS1GRUI2LTE1QTMiLCJleHAiOjE2NDI5NzUyOTIsImlzcyI6Imh0dHBzOi8vd3d3LmFraWxsaXRpY2FyZXQuY29tLyIsImF1ZCI6Imh0dHBzOi8vd3d3LmFraWxsaXRpY2FyZXQuY29tLyJ9.xv6G7dC6h8OZv_te0nV4BZC_UgushOJ7QaYfk0gaqfo", GUID: "A3A7-CD3A-FEB6-15A3" }
-};
 const items = async () => {
+  
   try{
-    const { data } = await axios.get('https://api.akilliticaretim.com/api/Product/ListProducts/0',config);
+    const { data } = await axiosInstance.get('/api/Product/ListProducts/0');
     setResults(data.data)
     console.log("başarılı")
     setLoading(false)
@@ -35,6 +33,7 @@ const items = async () => {
     console.log(err)
   }
 }
+
 
 useEffect(() => {
   items();
@@ -54,7 +53,8 @@ const [pageNumber,setPageNumber] = useState(0)
                       <Image alt={item.name} width={150} height={200} src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"/>
                     
                         <p>{item.name}</p>
-                        <p><strong>{item.price}&nbsp;{item.currency}</strong></p>
+                        <p><strong>{item.price}&nbsp;{item.currency}</strong><br/>
+                        <small><strong>taksitli fiyatı: </strong>{3 + "x" + Math.round(item.price/3)}</small></p>
                         <div className={Classes.cartItems}>
                           <label onClick={() => {setPage(item.id),setPopup(true)}}><MdOutlineFeaturedPlayList size={30}/></label>
                           <label onClick={() => notifyFav()}><AiFillHeart size={30}/></label>
@@ -77,7 +77,7 @@ const [pageNumber,setPageNumber] = useState(0)
         )
     })
     if(loading === true){
-      return <p style={{paddingLeft:"50%"}}>Yükleniyor...</p>
+      return <p style={{paddingLeft:"50%",height:"10vh"}}>Yükleniyor...</p>
     }
 
   return (

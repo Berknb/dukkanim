@@ -1,9 +1,8 @@
-import { logout, login ,auth } from '../../firebase/initFirebase';
 import { useRef, useState } from 'react';
 import Classes from "./login.module.scss";
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import axios from 'axios';
+import axiosInstance from '../api';
 
 export default function Login() { 
 const [loading, setLoading] = useState(false);
@@ -12,47 +11,44 @@ const router = useRouter();
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    async function handleLogin(){
-        const config = {
-            headers: { GUID: "A3A7-CD3A-FEB6-15A3", Auth: {Username:"user",Password:"123456"} }
-        };
-        axios.post('https://api.akilliticaretim.com/api/Auth/Login',config)
-          .then(function (response) {
-            console.log(response);
+    async function handleLogin(e){
+        e.preventDefault();
+        const postData = {
+            username: emailRef.current.value,
+            password: passwordRef.current.value
+          };
+          
+          axiosInstance({method:"POST",url:"/api/Auth/Login",data:postData})
+          .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res.data.data.token);
+            window.localStorage.setItem("token", res.data.data.token);
+            router.push("/")
           })
-          .catch(function (error) {
-            console.log(error);
-          });
+          .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+            alert("email: user // şifre: 123456")
+          })
      }
-    async function handleLogout(){
-        setLoading(true)
-        try{
-            await logout();
-        }catch{
-        }
-setLoading(false)
-    }
  
     return (
-        
             <div className={Classes.container}>
                 <form className={Classes.card}>
                     <h2>Giriş yap<hr/></h2>
                         <label>Email</label>
-                        <input type="email" ref={emailRef} placeholder='user@gmail.com'/>
+                        <input type="email" ref={emailRef} placeholder='user'/>
                         <label>Şifre</label>
                         <input type="password" ref={passwordRef} placeholder='123456'/>
                      
                     <section className={Classes.submit}>
-                    <button type="submit" disabled={loading || auth.currentUser != null} onClick={handleLogin}>
+                    <button type="submit" onClick={handleLogin}>
                         Giriş
                     </button>
-                    <button type="submit" disabled={auth.currentUser == null} onClick={handleLogout}>
+                    <button type="submit" disabled>
                         Çıkış yap 
                     </button>
                       
               </section>
-              <label >Hesabınız yok mu? <Link href='/authentication/Signup'>üye olmak için tıklayın</Link></label>
+              <label >Hesabınız yok mu? <Link href='/Giris/Kayit'>üye olmak için tıklayın</Link></label>
                     </form>
                 </div>
                

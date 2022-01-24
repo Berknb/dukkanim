@@ -1,7 +1,7 @@
 import Classes from './styles/SearchBar.module.scss'
 import {BsSearch} from 'react-icons/bs'
 import { useState,useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../pages/api';
 
 export default function SearchBar() {
   const [results,setResults] = useState([]);
@@ -17,13 +17,10 @@ export default function SearchBar() {
     setFiltered(flData)
     }
 
-  const config = {
-    headers: { Authorization: "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMjA1Mzk2Zi0xMjNlLTQ0YmUtOGIwZS01NGYyYmU4NGEyZTYiLCJ1c2VyaWQiOiIxMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZ3VpZCI6IkEzQTctQ0QzQS1GRUI2LTE1QTMiLCJleHAiOjE2NDI5NzUyOTIsImlzcyI6Imh0dHBzOi8vd3d3LmFraWxsaXRpY2FyZXQuY29tLyIsImF1ZCI6Imh0dHBzOi8vd3d3LmFraWxsaXRpY2FyZXQuY29tLyJ9.xv6G7dC6h8OZv_te0nV4BZC_UgushOJ7QaYfk0gaqfo", GUID: "A3A7-CD3A-FEB6-15A3" }
-};
 
 const items = async () => {
   try{
-    const { data } = await axios.get('https://api.akilliticaretim.com/api/Product/ListProducts/0',config);
+    const { data } = await axiosInstance.get('/api/Product/ListProducts/0');
     setResults(data.data)
     console.log("başarılı")
   }catch(err){

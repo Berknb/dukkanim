@@ -2,6 +2,7 @@
 
 .container{
     font-family: $menufont;
+    margin-bottom: 1.5rem;
 
     .aboutDukkan{
         background-color: rgb(211, 209, 209);
@@ -139,6 +140,7 @@
         background-color: #F5F5F5;
         font-size: 16px;
         font-family: 'Open Sans', sans-serif;
+        cursor: pointer;
     }
 }
 @media screen and (max-width:950px){

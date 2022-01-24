@@ -33,3 +33,15 @@
   .popupCloseBtn:hover{
     cursor: pointer;
   }
+  @media screen and (max-width:950px){
+    .popupInner{
+      position: relative;
+      padding: 32px;
+      width: 100%;
+      height: auto;
+    }
+    .popupCloseBtn{
+      top: 0;
+      left: 0;
+    }
+  }

@@ -1,22 +1,16 @@
-import Logo from '../images/mainLogo.png'
+import Logo from '../images/mainLogo.png';
 import Image from 'next/image';
-import Classes from './styles/Navbar.module.scss'
+import Classes from './styles/Navbar.module.scss';
 import SearchBar from './SearchBar';
-import {FaFacebookF} from 'react-icons/fa'
-import {AiFillYoutube} from 'react-icons/ai'
-import {BsInstagram,BsTwitter} from 'react-icons/bs'
-import {FiUser} from 'react-icons/fi'
-import {BsCart4} from 'react-icons/bs'
-import {ImExit} from 'react-icons/im'
-import { useRouter } from 'next/router'
-import { auth,logout } from '../firebase/initFirebase';
+import {FaFacebookF} from 'react-icons/fa';
+import {AiFillYoutube} from 'react-icons/ai';
+import {BsInstagram,BsTwitter} from 'react-icons/bs';
+import {FiUser} from 'react-icons/fi';
+import {BsCart4} from 'react-icons/bs';
+import { useRouter } from 'next/router';
 
 export default function Navbar() {
   const router = useRouter();
-  function logoutIcon(){
-    logout();
-    router.push("/")
-  }
   
   return (
       <nav className={Classes.container}>
@@ -39,16 +33,13 @@ export default function Navbar() {
 
           <SearchBar/>
           <section className={Classes.userItems}>
-          {auth.currentUser == null ?
           <label onClick={() => router.push("/Giris")}>
             <FiUser size={25}/>
             <p>
               Giriş Yap 
               <small style={{fontSize:"13px", color:"grey"}}> &nbsp;&nbsp;veya üye ol</small>
             </p>
-            </label>:
-            <label>{auth.currentUser.email}<p onClick={logoutIcon}><ImExit size={20}/></p></label>
-            }
+            </label>
           <label>
             <BsCart4 size={25}/>
             <p>
@@ -66,7 +57,7 @@ export default function Navbar() {
             <label>Mutfak Gereçleri</label>
             </div>
             <div className={Classes.location}>
-              {typeof window !== "undefined" && window.location.pathname != "/" && <p>Anasayfa {window.location.pathname.replaceAll("/"," > ")}</p>}
+              {typeof window !== "undefined" && window.location.pathname != "/" && <p><span onClick={()=>router.push("/")}>Anasayfa</span><strong>{window.location.pathname.replaceAll("/"," > ")}</strong></p>}
             </div>
       </nav>
   )
