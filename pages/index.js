@@ -20,7 +20,7 @@ export default function Home() {
         <div>
           <p>Bültene abone ol fırsatları kaçırma!</p>
           <section>
-            <input type="email"/>
+            <input type="email" placeholder="Email adresiniz"/>
             <button><AiOutlineArrowRight size={20}/></button>
           </section>
           </div>
