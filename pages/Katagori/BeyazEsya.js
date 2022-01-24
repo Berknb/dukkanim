@@ -77,7 +77,7 @@ const [pageNumber,setPageNumber] = useState(0)
         )
     })
     if(loading === true){
-      return <p style={{paddingLeft:"50%",height:"10vh"}}>Yükleniyor...</p>
+      return <p style={{paddingLeft:"50%",height:"10vh"}}>Yükleniyor...<br/>Lütfen giriş yapınız</p>
     }
 
   return (
