@@ -33,7 +33,7 @@ useEffect(() => {
 },[])
   
 
-
+console.log(filtered)
 
   return (
     <div className={Classes.container}>
@@ -52,7 +52,7 @@ useEffect(() => {
                     </li>
                     )
                 })}
-            </ul>:<ul><li>Eşleşen ürün yok </li></ul>}
+            </ul>:search.length > 2 && <ul><li>Eşleşen ürün yok </li></ul>}
               </section> 
       </div>
   )
