@@ -20,8 +20,8 @@ const router = useRouter();
           
           axiosInstance({method:"POST",url:"/api/Auth/Login",data:postData})
           .then((res) => {
-            console.log("RESPONSE RECEIVED: ", res.data.data.token);
             window.localStorage.setItem("token", res.data.data.token);
+            window.localStorage.setItem("refresh",res.data.data.refreshToken);
             router.push("/")
           })
           .catch((err) => {
