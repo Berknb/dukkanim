@@ -10,6 +10,8 @@ import Popup from "../../components/Popup";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select'
+import { useSelector } from "react-redux";
+import Link from "next/link";
 
 
 export default function BeyazEsya() {
@@ -19,8 +21,9 @@ export default function BeyazEsya() {
   const [page,setPage] = useState(1050);
   const [loading,setLoading] = useState(true);
   const [order,setOrder] = useState("Tüm markalar");
+  const currentUser = useSelector((state) => state.currentUser.value)
 
-  // -------------------------------Alerts--------------------------------------------
+// -------------------------------Alerts--------------------------------------------
   const notifySuccess = () => toast.success("Ürün sepetinize eklendi!");
   const notifyError = () => toast.error("Önce giriş yapmalısınız!");
   const notifyFav = () => toast.success("Ürün favorilere eklendi!");
@@ -123,7 +126,16 @@ const [pageNumber,setPageNumber] = useState(0)
         )
     })
     if(loading === true){
-      return <p style={{paddingLeft:"50%",height:"10vh"}}>Yükleniyor...<br/>Lütfen giriş yapınız</p>
+      return <p style={{display:"flex",justifyContent:"center"}}>Yükleniyor...</p>
+    }
+    if(currentUser == false){
+      return <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <p> Lüften önce giriş yapınız</p>
+        <div style={{display:"flex",justifyContent:"space-evenly",width:"30%",marginTop:"1rem"}}>
+          <Link href="/Giris">Giriş yap</Link>
+          <Link href="/Giris/Kayit">Üye ol</Link>
+        </div>
+      </div>
     }
 
   return (

@@ -13,7 +13,6 @@ export default function SearchBar() {
     const flData = results.filter(item => (
     item.name.toLowerCase().startsWith(e.target.value.toLowerCase()) || item.name.toLowerCase().includes(e.target.value.toLowerCase(),3)
     ))
-    console.log(e.target.value)
     setFiltered(flData)
     }
 
@@ -32,9 +31,6 @@ useEffect(() => {
   items();
 },[])
   
-
-console.log(filtered)
-
   return (
     <div className={Classes.container}>
       <div className={Classes.main}>
