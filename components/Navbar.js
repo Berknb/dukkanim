@@ -7,9 +7,14 @@ import {AiFillYoutube} from 'react-icons/ai';
 import {BsInstagram,BsTwitter} from 'react-icons/bs';
 import {FiUser} from 'react-icons/fi';
 import {BsCart4} from 'react-icons/bs';
+import {ImExit} from 'react-icons/im';
 import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux'
+import { offline } from '../stores/User'
 
 export default function Navbar() {
+  const currentUser = useSelector((state) => state.currentUser.value)
+  const dispatch = useDispatch()
   const router = useRouter();
   
   return (
@@ -33,13 +38,20 @@ export default function Navbar() {
 
           <SearchBar/>
           <section className={Classes.userItems}>
-          <label onClick={() => router.push("/Giris")}>
+          {currentUser == false ? <label onClick={() => router.push("/Giris")}>
             <FiUser size={25}/>
             <p>
               Giriş Yap 
               <small style={{fontSize:"13px", color:"grey"}}> &nbsp;&nbsp;veya üye ol</small>
             </p>
-            </label>
+            </label>:
+            <label>
+              <ImExit size={25} onClick={()=>{
+                dispatch(offline())
+                router.push("/")
+              }}/>
+              <p>Hoşgeldiniz!</p>
+            </label>}
           <label>
             <BsCart4 size={25}/>
             <p>

@@ -1,12 +1,14 @@
-import { useRef, useState } from 'react';
+import { useRef,useState,useEffect } from 'react';
 import Classes from "./login.module.scss";
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import axiosInstance from '../api';
+import { useDispatch } from 'react-redux'
+import {offline, online} from '../../stores/User'
 
 export default function Login() { 
-const [loading, setLoading] = useState(false);
 const router = useRouter();
+const dispatch = useDispatch()
 
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -22,14 +24,16 @@ const router = useRouter();
           .then((res) => {
             window.localStorage.setItem("token", res.data.data.token);
             window.localStorage.setItem("refresh",res.data.data.refreshToken);
+            dispatch(online())
             router.push("/")
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
+            dispatch(offline())
             alert("email: user // şifre: 123456")
           })
      }
- 
+     
     return (
             <div className={Classes.container}>
                 <form className={Classes.card}>
@@ -50,10 +54,6 @@ const router = useRouter();
               </section>
               <label >Hesabınız yok mu? <Link href='/Giris/Kayit'>üye olmak için tıklayın</Link></label>
                     </form>
-                </div>
-               
-            
-      
-        
+                </div>  
     )
 }

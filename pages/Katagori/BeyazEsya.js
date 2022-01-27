@@ -18,27 +18,27 @@ export default function BeyazEsya() {
   const [popup,setPopup] = useState(false);
   const [page,setPage] = useState(1050);
   const [loading,setLoading] = useState(true);
-  const [order,setOrder] = useState();
+  const [order,setOrder] = useState("Tüm markalar");
 
+  // -------------------------------Alerts--------------------------------------------
   const notifySuccess = () => toast.success("Ürün sepetinize eklendi!");
   const notifyError = () => toast.error("Önce giriş yapmalısınız!");
   const notifyFav = () => toast.success("Ürün favorilere eklendi!");
 
-
+// -------------------------------OrderBy--------------------------------------------
   const orderOnchange = (order) => {
-    if(order === "all"){
+    if(order === "Tüm markalar"){
       setFiltered(results)
     }else{
       const flData = results.filter(item => (
         item.name.toLowerCase().startsWith(order)
         ))
         setFiltered(flData);
-        console.log(flData)
     }
   };
 
   const options = [
-    { value:"all",
+    { value:"Tüm markalar",
       text: 'Tümü',
     },
     { value:"vestel",
@@ -59,7 +59,7 @@ export default function BeyazEsya() {
     { value:"dyson",
       text: 'Dyson',
     },
-    { value:"fakır",
+    { value:"fakir",
       text: 'Fakir',
     },
     { value:"hotpoint",
@@ -67,14 +67,13 @@ export default function BeyazEsya() {
     },
   ];
 
-
+// -------------------------------Fetch data--------------------------------------------
 const items = async () => {
   
   try{
     const { data } = await axiosInstance.get('/api/Product/ListProducts/0');
     setResults(data.data)
     setFiltered(data.data)
-    console.log("başarılı")
     setLoading(false)
   }catch(err){
     console.log(err)
@@ -133,7 +132,7 @@ const [pageNumber,setPageNumber] = useState(0)
         <p><strong>Beyaz Eşya</strong> katagorisi içeriğindeki ürünler listeleniyor;</p>
         </section>
         <section className={Classes.dropdown}>
-        <Select value={order} options={options} placeholder="Marka adına göre göster;" onChange={(e) => {
+        <Select value={order} options={options} placeholder={order} onChange={(e) => {
             setOrder(e.value);
             orderOnchange(e.value);
           }}
@@ -150,7 +149,7 @@ const [pageNumber,setPageNumber] = useState(0)
       <ul className={Classes.list}>
         {displayResults}
       </ul>
-      <div className={Classes.paginateMain}>
+      {Math.ceil(filtered.length / resultsPerPage) > 1 && <div className={Classes.paginateMain}>
         <ReactPaginate
             previousLabel={"Önceki sayfa"}
             nextLabel={"Sonraki sayfa"}
@@ -162,7 +161,7 @@ const [pageNumber,setPageNumber] = useState(0)
             disabledClassName={Classes.paginationDisabled}
             activeClassName={Classes.paginationActive}
             />
-            </div>
+            </div>}
             <ToastContainer autoClose={1700} position="bottom-right" closeOnClick pauseOnHover={false}/>
     </div>
   )
