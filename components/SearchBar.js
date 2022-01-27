@@ -16,7 +16,6 @@ export default function SearchBar() {
     setFiltered(flData)
     }
 
-
 const items = async () => {
   try{
     const { data } = await axiosInstance.get('/api/Product/ListProducts/0');

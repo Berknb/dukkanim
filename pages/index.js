@@ -2,9 +2,11 @@ import Head from 'next/head'
 import Classes from '../styles/index.module.scss'
 import {AiOutlineArrowRight} from 'react-icons/ai'
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
   const router = useRouter();
+  const currentUser = useSelector((state) => state.currentUser.value)
   return (
     <div className={Classes.homeMain}>
       <Head>
@@ -14,7 +16,10 @@ export default function Home() {
       </Head>
       <main>
         <section className={Classes.cards}> 
-        <div onClick={()=>router.push("Giris")}><p>Giriş yap alışverişe başla!</p></div>
+        {currentUser == false ?
+        <div onClick={()=>router.push("Giris")}><p>Giriş yap alışverişe başla!</p></div>:
+        <div onClick={()=>router.push("/Katagori/BeyazEsya")}><p>En iyi markaların ürünlerini incelemeye başla!</p></div>
+        }
         <div><p>Fırsat ürünleri</p></div>
         <a href='https://berk-portfolio.vercel.app/' target="_blank" rel='noreferrer'><p>Portfolyo</p></a>
         <div>
