@@ -48,7 +48,6 @@ export default function Navbar() {
             <label>
               <ImExit size={25} onClick={()=>{
                 dispatch(offline())
-                router.push("/")
               }}/>
               <p>Hoşgeldiniz!</p>
             </label>}

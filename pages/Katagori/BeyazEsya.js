@@ -11,7 +11,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select'
 import { useSelector } from "react-redux";
-import Link from "next/link";
 
 
 export default function BeyazEsya() {
@@ -106,8 +105,8 @@ const [pageNumber,setPageNumber] = useState(0)
                         <small><strong>taksitli fiyatı: </strong>{3 + "x" + Math.round(item.price/3) + " TL"}</small></p>
                         <div className={Classes.cartItems}>
                           <label onClick={() => {setPage(item.id),setPopup(true)}}><MdOutlineFeaturedPlayList size={30}/></label>
-                          <label onClick={() => notifyFav()}><AiFillHeart size={30}/></label>
-                          <label onClick={() => notifySuccess()}><BsCart4 size={30}/></label>
+                          <label onClick={() => {currentUser == true ? notifyFav():notifyError()}}><AiFillHeart size={30}/></label>
+                          <label onClick={() => {currentUser == true ? notifySuccess():notifyError()}}><BsCart4 size={30}/></label>
                         </div>
                         <Popup trigger={popup} setTrigger={setPopup}>
                           <div className={Classes.popup}>
@@ -116,8 +115,8 @@ const [pageNumber,setPageNumber] = useState(0)
                             </section>
                             <p>{results.find((e) => e.id == page).name}</p>
                             <section className={Classes.cartItems} style={{width:"30%"}}>
-                            <label onClick={() => notifyFav()}><BsCart4 size={30}/></label>
-                            <label onClick={() => notifySuccess()}><AiFillHeart size={30}/></label>
+                            <label onClick={() => {currentUser == true ? notifyFav():notifyError()}}><BsCart4 size={30}/></label>
+                            <label onClick={() => {currentUser == true ? notifySuccess():notifyError()}}><AiFillHeart size={30}/></label>
                             </section>
                           </div>
                         </Popup>   
@@ -128,16 +127,7 @@ const [pageNumber,setPageNumber] = useState(0)
     if(loading === true){
       return <p style={{display:"flex",justifyContent:"center"}}>Yükleniyor...</p>
     }
-    if(currentUser == false){
-      return <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <p> Lüften önce giriş yapınız</p>
-        <div style={{display:"flex",justifyContent:"space-evenly",width:"30%",marginTop:"1rem"}}>
-          <Link href="/Giris">Giriş yap</Link>
-          <Link href="/Giris/Kayit">Üye ol</Link>
-        </div>
-      </div>
-    }
-
+ 
   return (
     <div className={Classes.main}>
       <section className={Classes.category}>
