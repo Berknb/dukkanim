@@ -125,18 +125,23 @@ const [pageNumber,setPageNumber] = useState(0)
                   
         )
     })
-    if(loading === true && currentUser == true){
-      return <p style={{display:"flex",justifyContent:"center"}}>Yükleniyor...</p>
-    }else if(loading === true && currentUser == false){
-      return <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <p>Lütfen önce giriş yapınız</p>
-        <div style={{display:"flex",justifyContent:"space-between",width:"15%",marginTop:"1rem"}}>
-          <Link href="/Giris">Giriş yap</Link>
-          <Link href="/Giris/Kayit">Kayıt ol</Link>
+
+   
+      if(loading === true && currentUser === true){
+        return <p style={{display:"flex",justifyContent:"center"}}>Yükleniyor...</p>
+      }
+      if(currentUser === false){
+        return <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+          <p>Lütfen önce giriş yapınız</p>
+          <div style={{display:"flex",justifyContent:"space-between",width:"15%",marginTop:"1rem"}}>
+            <Link href="/Giris">Giriş yap</Link>
+            <Link href="/Giris/Kayit">Kayıt ol</Link>
+          </div>
         </div>
-      </div>
-    }
- 
+      }
+   
+    
+
   return (
     <div className={Classes.main}>
       <section className={Classes.category}>
